@@ -1,15 +1,14 @@
 import React from 'react';
-
-import { MEALS } from '../data/dummy';
 import MealList from '../components/MealList';
+import mealsStore from '../store/Meals';
+import { observer } from 'mobx-react';
 
 const CategoryMealsScreen = (props) => {
-  const { navigation } = props;
+  const {navigation} = props;
   const categoryId = navigation.getParam('categoryId');
-  const filteredMeals = MEALS.filter(meal => meal.categoryIds.includes(categoryId));
-
+  const filteredMeals = mealsStore.filteredMealsByCategoryId(categoryId);
   return (
-     <MealList items={filteredMeals}/>
+    <MealList items={filteredMeals}/>
   );
 };
 
@@ -17,7 +16,7 @@ CategoryMealsScreen.navigationOptions = ({navigation}) => ({
   headerTitle: navigation.getParam('headerTitle'),
 });
 
-export default CategoryMealsScreen;
+export default observer(CategoryMealsScreen);
 
 
 

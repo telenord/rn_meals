@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { StyleSheet,  } from 'react-native';
+import { StyleSheet, } from 'react-native';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
-import { useScreens } from 'react-native-screens';
-import MealsNavigation from './navigation/MealsNavigation';
+import { enableScreens } from 'react-native-screens';
+import { Provider } from 'mobx-react';
 
-useScreens();
+import MealsNavigation from './navigation/MealsNavigation';
+import mealsLists from './store/Meals';
+
+enableScreens();
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -23,15 +26,8 @@ export default function App() {
     />
   }
   return (
-    <MealsNavigation/>
+    <Provider store={mealsLists}>
+      <MealsNavigation/>
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

@@ -1,6 +1,6 @@
 const FONTS = {
-  openSans: 'open-sans-regular',
-  openSansBold: 'open-sans-regular',
+  openSans: 'open-sans',
+  openSansBold: 'open-sans-bold',
 };
 
 

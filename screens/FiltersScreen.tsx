@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, } from 'react-native';
+import { observer } from 'mobx-react';
+
 import DrawerButton from '../components/DrawerButton';
 import FONTS from '../constants/fonts';
-
 import FilterSwitch from '../components/FilterSwitch';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../components/HeaderButton';
-
+import mealsStore from '../store/Meals';
 
 const FiltersScreen = (props) => {
   const [isGlutenFree, setGlutenFree] = useState(false);
@@ -16,12 +17,14 @@ const FiltersScreen = (props) => {
 
   const {navigation} = props;
   const saveFilters = useCallback(() => {
-    return {
+    const filters=  {
       isGlutenFree,
       isLactoseFree,
       isVegan,
       isVegetarian
     };
+    mealsStore.applyFilters(filters);
+
   }, [isGlutenFree,
     isLactoseFree,
     isVegan,
@@ -65,14 +68,13 @@ FiltersScreen.navigationOptions = ({navigation}) => ({
   </HeaderButtons>),
 });
 
-export default FiltersScreen;
+export default observer(FiltersScreen);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-
   },
   filterContainer: {
     width: '80%',
